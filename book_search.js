@@ -52,7 +52,7 @@ function addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm,
     ];
 }
 
-/** Example input object. */
+// Example input object
 const twentyLeaguesIn = [
     {
         "Title": "Twenty Thousand Leagues Under the Sea",
@@ -75,9 +75,9 @@ const twentyLeaguesIn = [
             } 
         ] 
     }
-]
+];
     
-/** Example output object */
+// Example output object
 const twentyLeaguesOut = {
     "SearchTerm": "the",
     "Results": [
@@ -87,7 +87,39 @@ const twentyLeaguesOut = {
             "Line": 9
         }
     ]
-}
+};
+
+// Input without scanned text
+const inputWithoutScannedText = [
+    {
+        "Title": "Twenty Thousand Leagues Under the Sea",
+        "ISBN": "9780000528531",
+        "Content": [] 
+    }
+];
+
+// Input with case sensitive / insensitive text
+const inputWithCaseSensitiveAndInsensitiveText = [
+    {
+        "Title": "Twenty Thousand Leagues Under the Sea",
+        "ISBN": "9780000528531",
+        "Content": [
+            {
+                "Page": 31,
+                "Line": 8,
+                "Text": "The"
+            },
+            {
+                "Page": 31,
+                "Line": 9,
+                "Text": "the"
+            },
+        ] 
+    }
+];
+
+
+
 
 /*
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____  
@@ -97,14 +129,6 @@ const twentyLeaguesOut = {
  \___/|_| \_|___| |_|     |_| |_____|____/ |_| |____/ 
                                                       
  */
-
-//future tests
-//no book
-//book
-//book, no text
-//book, text
-//book, case senstiative text
-//do not modify origianl inputs
 
 /**
  * Should get a known output given a known input.
@@ -119,7 +143,7 @@ if (JSON.stringify(twentyLeaguesOut) === JSON.stringify(test1result)) {
 }
 
 /**
- * Should get the right number of results.
+ * Should get the right number of results when books and scanned text exist.
  */
 const test2result = findSearchTermInBooks("the", twentyLeaguesIn); 
 if (test2result.Results.length == 1) {
@@ -128,4 +152,64 @@ if (test2result.Results.length == 1) {
     console.log("FAIL: Test 2");
     console.log("Expected:", twentyLeaguesOut.Results.length);
     console.log("Received:", test2result.Results.length);
+}
+
+/**
+ * Should get the right number of results when books don't exist.
+ */
+const test3result = findSearchTermInBooks("the", []);
+if (test3result.Results.length == 0) {
+    console.log("PASS: Test 3");
+} else {
+    console.log("FAIL: Test 3");
+    console.log("Expected:", 0);
+    console.log("Received:", test3result.Results.length);
+}
+
+/**
+ * Should get the right number of results when books exist but scanned text does not.
+ */
+const test4result = findSearchTermInBooks("the", inputWithoutScannedText);
+if (test4result.Results.length == 0) {
+    console.log("PASS: Test 4");
+} else {
+    console.log("FAIL: Test 4");
+    console.log("Expected:", 0);
+    console.log("Received:", test4result.Results.length);
+}
+
+/**
+ * Should get the right number of results when matching case insensitive text exists.
+ */
+const test5result = findSearchTermInBooks("the", inputWithCaseSensitiveAndInsensitiveText);
+if (test5result.Results.length == 1) {
+    console.log("PASS: Test 5");
+} else {
+    console.log("FAIL: Test 5");
+    console.log("Expected:", 1);
+    console.log("Received:", test5result.Results.length);
+}
+
+/**
+ * Should get the right number of results for a multi word search term.
+ */
+const test6result = findSearchTermInBooks("now simply went on by her own", twentyLeaguesIn);
+if (test6result.Results.length == 1) {
+    console.log("PASS: Test 6");
+} else {
+    console.log("FAIL: Test 6");
+    console.log("Expected:", 1);
+    console.log("Received:", test6result.Results.length);
+}
+
+/**
+ * Should get the right number of results for a search term with special characters. 
+ */
+const test7result = findSearchTermInBooks("Canadian\'s", twentyLeaguesIn);
+if (test7result.Results.length == 1) {
+    console.log("PASS: Test 7");
+} else {
+    console.log("FAIL: Test 7");
+    console.log("Expected:", 1);
+    console.log("Received:", test7result.Results.length);
 }
