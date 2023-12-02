@@ -12,9 +12,6 @@
     let searchResults = [];
 
     for (const book of scannedTextObj) {
-        if (!(book?.Content).length) {
-            continue;
-        }
         let scannedTextWithSearchTerm = getScannedTextWithSearchTerm(book?.Content, searchTerm);
         searchResults = addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm, book?.ISBN);
     }
@@ -32,13 +29,7 @@
  * @returns {Array} Scanned text which contains the search term.
  */
 function getScannedTextWithSearchTerm(content, searchTerm) {
-    return content.filter(content => {
-        if (!content?.Text) {
-            return false;
-        }
-
-        return (content?.Text).includes(searchTerm);
-    });
+    return content.filter(content => (content?.Text).includes(searchTerm));
 }
 
 /**
@@ -49,10 +40,6 @@ function getScannedTextWithSearchTerm(content, searchTerm) {
  * @returns {Array} Updated search results.
  */
 function addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm, ISBN) {
-    if (!scannedTextWithSearchTerm.length) {
-        return searchResults;
-    }
-
     return [
         ...searchResults,
         ...scannedTextWithSearchTerm.map(scannedText => {
