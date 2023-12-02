@@ -12,9 +12,26 @@
     let searchResults = [];
 
     for (const book of scannedTextObj) {
+        if (!(book.Content).length) {
+            continue;
+        }
+
+        let scannedTextWithSearchTerm = (book.Content).filter(content => {
+            if (content.Text) {
+                return (content.Text).includes(searchTerm);
+            }
+            return false;
+        });
+
         searchResults = [
             ...searchResults,
-            (book.Content).filter(content => (content.Text).includes(searchTerm))
+            ...scannedTextWithSearchTerm.map(scannedText => {   
+                return {
+                    ISBN: book.ISBN,
+                    Page: scannedText.Page,
+                    Line: scannedText.Line,
+                };
+            })
         ];
     }
 
@@ -76,6 +93,7 @@ const twentyLeaguesOut = {
 //book, no text
 //book, text
 //book, case senstiative text
+//do not modify origianl inputs
 
 /**
  * Should get a known output given a known input.
