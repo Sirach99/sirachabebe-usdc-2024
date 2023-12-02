@@ -15,8 +15,8 @@
         if (!(book.Content).length) {
             continue;
         }
-        let scannedTextWithSearchTerm = getScannedTextWithSearchTerm(book, searchTerm);
-        searchResults = addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm, book);
+        let scannedTextWithSearchTerm = getScannedTextWithSearchTerm(book.Content, searchTerm);
+        searchResults = addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm, book.ISBN);
     }
 
     return {
@@ -25,22 +25,34 @@
     };
 }
 
-function addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm, book) {
-    searchResults = [
+/**
+ * 
+ * @param {Array} searchResults - Search results.
+ * @param {Array} scannedTextWithSearchTerm - Scanned text which contains the search term.
+ * @param {String} ISBN - Book identifier.
+ * @returns {Array} Updated search results.
+ */
+function addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm, ISBN) {
+    return [
         ...searchResults,
         ...scannedTextWithSearchTerm.map(scannedText => {
             return {
-                ISBN: book.ISBN,
+                ISBN,
                 Page: scannedText.Page,
                 Line: scannedText.Line,
             };
         })
     ];
-    return searchResults;
 }
 
-function getScannedTextWithSearchTerm(book, searchTerm) {
-    return (book.Content).filter(content => {
+/**
+ * 
+ * @param {Array} content - Scanned text for a particular book.
+ * @param {String} searchTerm - The word or term we're searching for. 
+ * @returns {Array} Scanned text which contains the search term.
+ */
+function getScannedTextWithSearchTerm(content, searchTerm) {
+    return content.filter(content => {
         if (content.Text) {
             return (content.Text).includes(searchTerm);
         }
