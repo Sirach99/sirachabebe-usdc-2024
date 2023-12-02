@@ -76,14 +76,9 @@ const twentyLeaguesOut = {
                                                       
  */
 
-/* We have provided two unit tests. They're really just `if` statements that 
- * output to the console. We've provided two tests as examples, and 
- * they should pass with a correct implementation of `findSearchTermInBooks`. 
- * 
- * Please add your unit tests below.
- * */
-
-/** We can check that, given a known input, we get a known output. */
+/**
+ * Should get a known output given a known input.
+ */
 const test1result = findSearchTermInBooks("the", twentyLeaguesIn);
 if (JSON.stringify(twentyLeaguesOut) === JSON.stringify(test1result)) {
     console.log("PASS: Test 1");
@@ -93,7 +88,9 @@ if (JSON.stringify(twentyLeaguesOut) === JSON.stringify(test1result)) {
     console.log("Received:", test1result);
 }
 
-/** We could choose to check that we get the right number of results. */
+/**
+ * Should get the right number of results.
+ */
 const test2result = findSearchTermInBooks("the", twentyLeaguesIn); 
 if (test2result.Results.length == 1) {
     console.log("PASS: Test 2");
