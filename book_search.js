@@ -1,15 +1,5 @@
-/** 
- * RECOMMENDATION
- * 
- * To test your code, you should open "tester.html" in a web browser.
- * You can then use the "Developer Tools" to see the JavaScript console.
- * There, you will see the results unit test execution. You are welcome
- * to run the code any way you like, but this is similar to how we will
- * run your code submission.
- * 
- * The Developer Tools in Chrome are available under the "..." menu, 
- * futher hidden under the option "More Tools." In Firefox, they are 
- * under the hamburger (three horizontal lines), also hidden under "More Tools." 
+/**
+ * findSearchTermInBooks implementation. 
  */
 
 /**
@@ -19,15 +9,19 @@
  * @returns {JSON} - Search results.
  * */ 
  function findSearchTermInBooks(searchTerm, scannedTextObj) {
-    /** You will need to implement your search and 
-     * return the appropriate object here. */
+    let pagesWithSearchTerm = [];
 
-    var result = {
-        "SearchTerm": "",
-        "Results": []
+    for (const book of scannedTextObj) {
+        pagesWithSearchTerm = [
+            ...pagesWithSearchTerm,
+            (book.Content).filter(content => (content.Text).includes(searchTerm))
+        ];
+    }
+
+    return {
+        SearchTerm: searchTerm,
+        Results: pagesWithSearchTerm,
     };
-    
-    return result; 
 }
 
 /** Example input object. */
