@@ -26,7 +26,7 @@
 }
 
 /**
- * 
+ * Adds scanned text to search results.
  * @param {Array} searchResults - Search results.
  * @param {Array} scannedTextWithSearchTerm - Scanned text which contains the search term.
  * @param {String} ISBN - Book identifier.
@@ -46,7 +46,7 @@ function addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm,
 }
 
 /**
- * 
+ * Gets all scanned text which contains the search term.
  * @param {Array} content - Scanned text for a particular book.
  * @param {String} searchTerm - The word or term we're searching for. 
  * @returns {Array} Scanned text which contains the search term.
