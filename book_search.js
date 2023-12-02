@@ -70,6 +70,13 @@ const twentyLeaguesOut = {
                                                       
  */
 
+//future tests
+//no book
+//book
+//book, no text
+//book, text
+//book, case senstiative text
+
 /**
  * Should get a known output given a known input.
  */
