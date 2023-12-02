@@ -1,22 +1,22 @@
 /**
- * findSearchTermInBooks implementation. 
+ * Implementation of required solution/tests for USDC task. 
  */
 
 /**
  * Searches for matches in scanned text.
- * @param {string} searchTerm - The word or term we're searching for. 
+ * @param {String} searchTerm - The word or term we're searching for. 
  * @param {JSON} scannedTextObj - A JSON object representing the scanned text.
  * @returns {JSON} - Search results.
- * */ 
+ */ 
  function findSearchTermInBooks(searchTerm, scannedTextObj) {
     let searchResults = [];
 
     for (const book of scannedTextObj) {
-        if (!(book.Content).length) {
+        if (!(book?.Content).length) {
             continue;
         }
-        let scannedTextWithSearchTerm = getScannedTextWithSearchTerm(book.Content, searchTerm);
-        searchResults = addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm, book.ISBN);
+        let scannedTextWithSearchTerm = getScannedTextWithSearchTerm(book?.Content, searchTerm);
+        searchResults = addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm, book?.ISBN);
     }
 
     return {
@@ -38,8 +38,8 @@ function addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm,
         ...scannedTextWithSearchTerm.map(scannedText => {
             return {
                 ISBN,
-                Page: scannedText.Page,
-                Line: scannedText.Line,
+                Page: scannedText?.Page,
+                Line: scannedText?.Line,
             };
         })
     ];
@@ -53,8 +53,8 @@ function addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm,
  */
 function getScannedTextWithSearchTerm(content, searchTerm) {
     return content.filter(content => {
-        if (content.Text) {
-            return (content.Text).includes(searchTerm);
+        if (content?.Text) {
+            return (content?.Text).includes(searchTerm);
         }
         return false;
     });
