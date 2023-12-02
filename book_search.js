@@ -48,6 +48,10 @@ function getScannedTextWithSearchTerm(content, searchTerm) {
  * @returns {Array} Updated search results.
  */
 function addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm, ISBN) {
+    if (!scannedTextWithSearchTerm.length) {
+        return searchResults;
+    }
+
     return [
         ...searchResults,
         ...scannedTextWithSearchTerm.map(scannedText => {
