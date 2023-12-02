@@ -33,10 +33,11 @@
  */
 function getScannedTextWithSearchTerm(content, searchTerm) {
     return content.filter(content => {
-        if (content?.Text) {
-            return (content?.Text).includes(searchTerm);
+        if (!content?.Text) {
+            return false;
         }
-        return false;
+
+        return (content?.Text).includes(searchTerm);
     });
 }
 
