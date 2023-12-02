@@ -15,30 +15,37 @@
         if (!(book.Content).length) {
             continue;
         }
-
-        let scannedTextWithSearchTerm = (book.Content).filter(content => {
-            if (content.Text) {
-                return (content.Text).includes(searchTerm);
-            }
-            return false;
-        });
-
-        searchResults = [
-            ...searchResults,
-            ...scannedTextWithSearchTerm.map(scannedText => {   
-                return {
-                    ISBN: book.ISBN,
-                    Page: scannedText.Page,
-                    Line: scannedText.Line,
-                };
-            })
-        ];
+        let scannedTextWithSearchTerm = getScannedTextWithSearchTerm(book, searchTerm);
+        searchResults = addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm, book);
     }
 
     return {
         SearchTerm: searchTerm,
         Results: searchResults,
     };
+}
+
+function addScannedTextToSearchResults(searchResults, scannedTextWithSearchTerm, book) {
+    searchResults = [
+        ...searchResults,
+        ...scannedTextWithSearchTerm.map(scannedText => {
+            return {
+                ISBN: book.ISBN,
+                Page: scannedText.Page,
+                Line: scannedText.Line,
+            };
+        })
+    ];
+    return searchResults;
+}
+
+function getScannedTextWithSearchTerm(book, searchTerm) {
+    return (book.Content).filter(content => {
+        if (content.Text) {
+            return (content.Text).includes(searchTerm);
+        }
+        return false;
+    });
 }
 
 /** Example input object. */
