@@ -9,18 +9,18 @@
  * @returns {JSON} - Search results.
  * */ 
  function findSearchTermInBooks(searchTerm, scannedTextObj) {
-    let pagesWithSearchTerm = [];
+    let searchResults = [];
 
     for (const book of scannedTextObj) {
-        pagesWithSearchTerm = [
-            ...pagesWithSearchTerm,
+        searchResults = [
+            ...searchResults,
             (book.Content).filter(content => (content.Text).includes(searchTerm))
         ];
     }
 
     return {
         SearchTerm: searchTerm,
-        Results: pagesWithSearchTerm,
+        Results: searchResults,
     };
 }
 
