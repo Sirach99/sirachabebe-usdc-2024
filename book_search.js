@@ -213,3 +213,27 @@ if (test7result.Results.length == 1) {
     console.log("Expected:", 1);
     console.log("Received:", test7result.Results.length);
 }
+
+/**
+ * Should get the right number of results when the search term cannot be found in any scanned text. 
+ */
+const test8result = findSearchTermInBooks('ddd', twentyLeaguesIn);
+if (test8result.Results.length == 0) {
+    console.log("PASS: Test 8");
+} else {
+    console.log("FAIL: Test 8");
+    console.log("Expected:", 0);
+    console.log("Received:", test8result.Results.length);
+}
+
+/**
+ * Should get the right number of results when the search term is null. 
+ */
+const test9result = findSearchTermInBooks(null, twentyLeaguesIn);
+if (test9result.Results.length == 0) {
+    console.log("PASS: Test 9");
+} else {
+    console.log("FAIL: Test 9");
+    console.log("Expected:", 0);
+    console.log("Received:", test9result.Results.length);
+}
