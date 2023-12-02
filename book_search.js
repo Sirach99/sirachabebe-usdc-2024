@@ -118,6 +118,32 @@ const inputWithCaseSensitiveAndInsensitiveText = [
     }
 ];
 
+// Input with multiple books
+const inputWithMultipleBooks = [
+    {
+        "Title": "Twenty Thousand Leagues Under the Sea",
+        "ISBN": "9780000528531",
+        "Content": [
+            {
+                "Page": 31,
+                "Line": 9,
+                "Text": "the"
+            },
+        ] 
+    },
+    {
+        "Title": "second",
+        "ISBN": "24151",
+        "Content": [
+            {
+                "Page": 22,
+                "Line": 20,
+                "Text": "the"
+            },
+        ] 
+    },
+];
+
 
 
 
@@ -236,4 +262,16 @@ if (test9result.Results.length == 0) {
     console.log("FAIL: Test 9");
     console.log("Expected:", 0);
     console.log("Received:", test9result.Results.length);
+}
+
+/**
+ * Should get the right number of results when the search term exists in scanned text of multiple books. 
+ */
+const test10result = findSearchTermInBooks("the", inputWithMultipleBooks);
+if (test10result.Results.length == 2) {
+    console.log("PASS: Test 10");
+} else {
+    console.log("FAIL: Test 10");
+    console.log("Expected:", 2);
+    console.log("Received:", test10result.Results.length);
 }
